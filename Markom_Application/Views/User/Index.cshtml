@@ -1,0 +1,156 @@
+﻿@model Markom_Application.Models.Master.RowsUserModel
+
+<div class="col-lg-12">
+    <br />
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">@ViewBag.TitleLeft</a></li>
+            <li class="breadcrumb-item"><a href="#">@ViewBag.TitleMid</a></li>
+            <li class="breadcrumb-item active" aria-current="page" id="titleMutation">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <br />
+        <div class="card oh">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap mb-1">
+                    <div class="alert alert-info alert-dismissible fade" role="alert">
+                        <div class="alertText"></div>
+                        <button type="button" class="close closeAlert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @{ Html.RenderPartial("_FilterUser"); }
+                    <table id="table"
+                           data-toggle="table"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-page-list="[10, 25, 50]"
+                           data-page-size="10"
+                           data-url="@Url.Action("GetData", "User")"
+                           data-query-params-type="false"
+                           data-buttons-class="primary"
+                           data-query-params="queryParamsUser"
+                           class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.employee_name)">Employee</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.role_name)">Role</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.company_name)">Company</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.username)">Username</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.created_date)">Created Date</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.created_by)">Created By</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.m_employee_id)" data-visible="false">Employee ID</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.m_role_id)" data-visible="false">Role ID</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.password)" data-visible="false">Password</th>
+                                <th class="py-0 text-center" data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{ Html.RenderPartial("_Script"); }
+<!-- Modal AddUp -->
+<div class="modal fade bd-example-modal-xl" id="ModalAdUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id=""></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-right">* Role Name</label>
+                        <div class="col-sm-4">
+                            <select type="text" class="form-control" id="Role_ID_Input" name="Role_ID_Input" autocomplete="off">
+                            </select>
+                            <p class="errorRole_ID text-danger d-none"></p>
+                        </div>
+                        <label for="" class="col-sm-2 col-form-label text-right">* Username</label>
+                        <div class="col-sm-4">
+                            <input type="hidden" class="form-control" id="id" name="id" value="" />
+                            <input type="text" class="form-control" id="Username_Input" name="Username_Input" placeholder="Type Username" autocomplete="off" />
+                            <input type="hidden" class="form-control" id="Username_Input_Second" name="Username_Input_Input_Second" value="" />
+                            <p class="errorUsername text-danger d-none"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-right">* Employee Name</label>
+                        <div class="col-sm-4">
+                            <select type="text" class="form-control" id="Employee_ID_Input" name="Employee_ID_Input" autocomplete="off">
+                            </select>
+                            <p class="errorEmployee_ID text-danger d-none"></p>
+                        </div>
+                        <label for="" class="col-sm-2 col-form-label text-right">* Password</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="Password_Input" name="Password_Input" placeholder="Type Password" autocomplete="off" />
+                            <p class="errorPassword text-danger d-none"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6"></div>
+                        <label for="" class="col-sm-2 col-form-label text-right">* Re-type Password</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="Password_Input_Second" name="Password_Input_Second" placeholder="Re-type Password" autocomplete="off" />
+                            <p class="errorPassword_ReType text-danger d-none"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary add" data-request-url="@Url.Action("AddUp", "User")">Save</button>
+                <button class="btn btn-primary addL d-none" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="javascript:void(0)" role="form">
+                <div class="modal-body">
+                    <input id="idDel" type="hidden" class="form-control" name="id" value="">
+                    Delete @ViewBag.Title "<b><span id="nameDel"></span></b>" ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary delete" data-request-url="@Url.Action("Delete", "User")">Delete</button>
+                    <button type="button" class="btn btn-danger cl" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary deleteL d-none" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ViewBag = '@ViewBag.Title';
+    var ViewContent = '@ViewBag.TitleLeft';
+</script>
+<script src="~/Scripts/jsdata/user.js"></script>

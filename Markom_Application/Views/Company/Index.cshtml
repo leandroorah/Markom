@@ -1,0 +1,149 @@
+﻿@model Markom_Application.Models.Master.RowsCompanyModel
+
+<div class="col-lg-12">
+    <br />
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">@ViewBag.TitleLeft</a></li>
+            <li class="breadcrumb-item"><a href="#">@ViewBag.TitleMid</a></li>
+            <li class="breadcrumb-item active" aria-current="page" id="titleMutation">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <br />
+        <div class="card oh">
+            <div class="card-body">
+                <div class="table-responsive text-nowrap mb-1">
+                    <div class="alert alert-info alert-dismissible fade" role="alert">
+                        <div class="alertText"></div>
+                        <button type="button" class="close closeAlert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @{ Html.RenderPartial("_FilterCompany"); }
+                    <table id="table"
+                           data-toggle="table"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-page-list="[10, 25, 50]"
+                           data-page-size="10"
+                           data-url="@Url.Action("GetData", "Company")"
+                           data-query-params-type="false"
+                           data-buttons-class="primary"
+                           data-query-params="queryParamsCompany"
+                           class="table table-bordered table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.code)">Company Code</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.name)">Company Name</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.created_date)">Created Date</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.created_by)">Created By</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.email)" data-visible="false">Email</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.phone)" data-visible="false">Phone</th>
+                                <th class="py-0 text-center" data-field="@Html.DisplayNameFor(m => m.address)" data-visible="false">Address</th>
+                                <th class="py-0 text-center" data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{ Html.RenderPartial("_Script"); }
+<!-- Modal AddUp -->
+<div class="modal fade bd-example-modal-xl" id="ModalAdUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id=""></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-right">* Company Code</label>
+                        <div class="col-sm-4">
+                            <input type="hidden" class="form-control" id="id" name="id" value="" />
+                            <input type="text" class="form-control" id="Company_Code_Input" name="Company_Code_Input" autocomplete="off" disabled />
+                        </div>
+                        <label for="" class="col-sm-2 col-form-label text-right">* Company Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="Company_Name_Input" name="Company_Name_Input" placeholder="Type Company Name" autocomplete="off" />
+                            <input type="hidden" class="form-control" id="Company_Name_Input_Second" name="Company_Name_Input_Second" value="" />
+                            <p class="errorCompany_Name text-danger d-none"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-right">Email</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="Company_Email_Input" name="Company_Email_Input" placeholder="Type Email" autocomplete="off" />
+                            <p class="errorEmail text-danger d-none"></p>
+                        </div>
+                        <label for="" class="col-sm-2 col-form-label text-right">Phone</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="Company_Phone_Input" name="Company_Phone_Input" placeholder="Type Phone" autocomplete="off" />
+                            <p class="errorPhone text-danger d-none"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-right">Address</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="Company_Address_Input" name="Company_Address_Input" placeholder="Type Address" rows="5"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary add" data-request-url="@Url.Action("AddUp", "Company")">Save</button>
+                <button class="btn btn-primary addL d-none" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="javascript:void(0)" role="form">
+                <div class="modal-body">
+                    <input id="idDel" type="hidden" class="form-control" name="id" value="">
+                    Delete @ViewBag.Title "<b><span id="nameDel"></span></b>" ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary delete" data-request-url="@Url.Action("Delete", "Company")">Delete</button>
+                    <button type="button" class="btn btn-danger cl" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary deleteL d-none" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ViewBag = '@ViewBag.Title';
+    var ViewContent = '@ViewBag.TitleLeft';
+</script>
+<script src="~/Scripts/jsdata/company.js?v=@DateTime.Now.ToString()"></script>

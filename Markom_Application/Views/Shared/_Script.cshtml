@@ -1,0 +1,42 @@
+﻿<script>
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="btn btn-secondary btn-sm detail py-0" title="edit" href="javascript:void(0)">',
+            '<i class="fa fa-search"></i>',
+            '</a> &nbsp',
+            '<a class="btn btn-secondary btn-sm like py-0" title="edit" href="javascript:void(0)">',
+            '<i class="fa fa-edit"></i>',
+            '</a> &nbsp',
+            '<a class="btn btn-secondary btn-sm remove py-0" title="delete" href="javascript:void(0)">',
+            '<i class="fa fa-trash"></i>',
+            '</a>'
+        ].join('')
+    }
+
+    $(function () {
+        $('.createDateSearch').datepicker({
+            //clearBtn: true
+        });
+    });
+
+    function operateFormatterEvent(value, row, index) {
+        if (row.status == "Done" || row.status == "Rejected" || (row.status == "In Progress" && document.getElementById('role').textContent != "8")) {
+            return [
+            '<a class="btn btn-secondary btn-sm detail py-0" title="edit" href="javascript:void(0)">',
+            '<i class="fa fa-search"></i>',
+            '</a>'
+            ].join('')
+        }
+        else {
+            return [
+            '<a class="btn btn-secondary btn-sm detail py-0" title="edit" href="javascript:void(0)">',
+            '<i class="fa fa-search"></i>',
+            '</a> &nbsp',
+            '<a class="btn btn-secondary btn-sm like py-0" title="edit" href="javascript:void(0)">',
+            '<i class="fa fa-edit"></i>',
+            '</a>'
+            ].join('')
+        }
+    }
+
+</script>

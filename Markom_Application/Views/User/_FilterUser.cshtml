@@ -1,0 +1,64 @@
+﻿<style>
+    .form-group-filter {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="card card-body">
+    <div class="form">
+        <div class="form-content">
+            <div class="row">
+                <div class="col-md-10">
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group-filter">
+                        <button type="button" class="btn btn-info btn-block create" id="addButton">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group-filter">
+                        <input class="form-control" list="Employee_Name_List" id="Employee_Name" placeholder="- Select Employee Name -" />
+                        <datalist id="Employee_Name_List">
+                        </datalist>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-filter">
+                        <input class="form-control" list="Role_Name_List" id="Role_Name" placeholder="- Select Role Name -" />
+                        <datalist id="Role_Name_List">
+                        </datalist>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-filter">
+                        <input class="form-control" list="Company_Name_List" id="Company_Name" placeholder="- Select Company Name -" />
+                        <datalist id="Company_Name_List">
+                        </datalist>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group-filter">
+                        <input type="text" class="form-control" id="Username" placeholder="Username" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group-filter">
+                        <input type="text" class="form-control createDateSearch" id="Created_Date" placeholder="Created Date" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group-filter">
+                        <input type="text" class="form-control" id="Created_By" placeholder="Created By" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group-filter">
+                        <button type="button" class="btn btn-warning btn-block" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

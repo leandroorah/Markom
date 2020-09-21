@@ -1,0 +1,125 @@
+﻿@model Markom_Application.Models.Master.ParameterUser
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <style>
+
+        .container-fluid {
+            padding: 30px;
+        }
+
+        .login {
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+            /* background-color: #f7f9fa; */
+            border-radius: 5px;
+            padding: 60px 20px;
+        }
+
+
+            .login .content {
+                margin: 0 15%;
+                padding: 50% 0 10px;
+            }
+
+            .login .forgotlinkholder {
+                margin: 20px auto;
+                padding-bottom: 20px;
+                /* border-bottom: 1px solid #cbd2d6; */
+                text-align: center;
+            }
+
+                .login .forgotlinkholder a,
+                .login .forgotlinkholder a:link,
+                .login .forgotlinkholder a:visited {
+                    color: darkturquoise;
+                    font-weight: 400;
+                    text-decoration: none;
+                }
+
+            .login .buttonsignup {
+                width: 100%;
+                height: 44px;
+                padding: 0;
+                border: 0;
+                display: block;
+                background-color: #e1e7eb;
+                border-radius: 5px;
+                cursor: pointer;
+                color: #222;
+                transition: background-color 0.4s ease-out;
+            }
+
+                .login .buttonsignup:hover {
+                    background-color: #d2dbe1;
+                }
+
+            .login .actionbutton {
+                margin-top: 10%;
+            }
+
+            .login .element {
+                height: 40px;
+                width: 100%;
+                padding: 0 10px;
+                margin-bottom: 10px;
+                border: 1px solid #9da3a6;
+                background: #fff;
+                border-radius: 5px;
+            }
+    </style>
+</head>
+<body class="login-block">
+    @if (@ViewBag.Message != null)
+    {
+        <div style="border: 1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="container-fluid">
+        <div class="login">
+            <div class="content">
+                <h6>Welcome...</h6>
+                <hr />
+                <br />
+
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                <div class="form-group">
+                    <label class="control-label" for="username">Username</label>
+                    @Html.TextBoxFor(m => m.UsernameLogin, new { @class = "form-control", title = "Please enter your username", required = "required", autofocus = "", placeholder = "example@gmail.com", type = "text" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Password</label>
+                    @Html.TextBoxFor(m => m.PasswordLogin, new { @class = "form-control", title = "Please enter your password", required = "", autofocus = "", placeholder = "******", type = "password", autocomplete = "off" })
+                </div>
+                
+                    if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-mg-b">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            @TempData["Error"]
+                        </div>
+                    }
+                <button class="btn btn-info btn-block">Login</button>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

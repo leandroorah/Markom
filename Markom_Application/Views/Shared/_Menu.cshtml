@@ -1,0 +1,50 @@
+﻿<a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i></a>
+
+<aside class="left-sidebar">
+    <div class="nav-text-box align-items-center d-md-none">
+        <span>Markom Application</span>
+        <a class="nav-lock waves-effect waves-dark ml-auto hidden-md-down" href="javascript:void(0)"><i class="mdi mdi-toggle-switch"></i></a>
+        <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)"><i class="ti-close"></i></a>
+    </div>
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+            <ul class="left" id="sidebarnav">
+                <li>
+                    <a class="waves-effect waves-dark border-right py-2" href="@Url.Action("Index", "Home")" aria-expanded="false">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="has-arrow waves-effect waves-dark border-right py-2" href="@Url.Action("Index", "Home")" aria-expanded="false">
+                        <span class="hide-menu">Master</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="@Url.Action("Index", "Company")">List Company</a></li>
+                        <li><a href="@Url.Action("Index", "Employee")">List Employee</a></li>
+                        <li><a href="@Url.Action("Index", "Role")">List Role</a></li>
+                        <li><a href="@Url.Action("Index", "User")">List User</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow waves-effect waves-dark border-right py-2" href="@Url.Action("Index", "Home")" aria-expanded="false">
+                        <span class="hide-menu">Transaction</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="@Url.Action("Index", "Event")">List Event</a></li>
+                    </ul>
+                </li>
+                <li class="nav-small-cap"></li>
+            </ul>
+            <ul class="right" id="sidebarnav">
+                <li>
+                    <p id="role" hidden>@Session["Role"]</p>
+                    <p id="employeeID" hidden>@Session["EmployeeID"]</p>
+                    <a class="has-arrow waves-effect waves-dark py-2" id="sessionName" href="javascript:void(0)" aria-expanded="false">@Session["Name"]</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a id="logoutt" href="@Url.Action("LogOut", "Login")" class="text-danger">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
